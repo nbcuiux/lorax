@@ -1,0 +1,115 @@
+
+
+.characters {
+	position: absolute;
+	bottom: 0px;
+	z-index: 15;
+	width: 100%;
+}
+
+
+
+
+@mixin character-intro-transition {
+
+	&.characters__lorax {
+		@include transition(transform 0.7s 0.4s);
+	}
+
+
+	&.characters__audrey {
+		@include transition(transform 0.7s 0.3s);	
+	}
+
+	&.characters__grandma {
+		@include transition(transform 0.7s 0.2s);
+	}
+
+
+	&.characters__ohare {
+		@include transition(transform 0.7s 0.1s);
+	}
+}
+
+
+
+.character {
+	@include transition(transform 0.3s 0s);
+	.main-wrapper-intro-phase--video &,
+	.main-wrapper-intro-phase--logo-appear &,
+	.main-wrapper-intro-phase--background-appear &,
+	.main-wrapper-intro-phase--logo-fade &,
+	.main-wrapper-intro-phase--logo-shrink &
+	{
+		@include transform(translateY(100%) rotate(0deg));
+		@include character-intro-transition;
+	}	
+
+
+	.main-wrapper-intro-phase--finish &
+	{
+		@include transform(translateY(0%) rotate(0deg));
+		@include character-intro-transition;
+	}
+
+	&:hover {
+
+		@include transform(translateY(0%) rotate(3deg));
+		
+	}
+
+}
+
+.characters__lorax {
+	position: absolute;
+	bottom: 0px;
+	left: 15%;
+	img {
+		display: block;
+		width: 30vw;
+		height: auto;
+	}
+
+}
+
+
+.characters__audrey {
+	position: absolute;
+	bottom: -20px;
+	left: 76%;
+	img {
+		display: block;
+		width: 24vw;
+		height: auto;
+	}	
+}
+
+.characters__grandma {
+	position: absolute;
+	bottom: 0px;
+	left: 57%;
+	img {
+		display: block;
+		width: 35vw;
+		height: auto;
+	}
+}
+
+
+.characters__ohare {
+	position: absolute;
+	bottom: 0px;
+	left: 40%;
+	img {
+		display: block;
+		width: 24vw;
+		height: auto;
+	}
+}
+
+
+
+
+
+
+

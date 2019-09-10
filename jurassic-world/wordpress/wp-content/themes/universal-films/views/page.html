@@ -1,0 +1,167 @@
+{% extends "_base.html" %}
+
+{% block content %}
+	<script>
+		// Render all the wordpress data as json, which will eventually be
+		// passed as props into out components
+
+		window.SITE_DATA = {
+			pages: {{ pages | json_encode }},
+			menu: {{ menu | json_encode }}
+		}
+
+	</script>
+
+
+	<svg style="display:none">
+		<symbol id="icon-home-o" viewbox="0 0 40 40">
+			{% include 'assets/icons/icon-home-o.svg' %}
+		</symbol>
+		<symbol id="icon-video-o" viewbox="0 0 40 40">
+			{% include 'assets/icons/icon-video-o.svg' %}
+		</symbol>
+		<symbol id="icon-gallery-o" viewbox="0 0 40 40">
+			{% include 'assets/icons/icon-gallery-o.svg' %}
+		</symbol>
+		<symbol id="icon-cast-o" viewbox="0 0 40 40">
+			{% include 'assets/icons/icon-cast-o.svg' %}
+		</symbol>
+		<symbol id="icon-dinosaurs-o" viewbox="0 0 40 40">
+			{% include 'assets/icons/icon-dinosaurs-o.svg' %}
+		</symbol>
+		<symbol id="icon-tickets-o" viewbox="0 0 40 40">
+			{% include 'assets/icons/icon-tickets-o.svg' %}
+		</symbol>
+		<symbol id="icon-home-eye" viewbox="0 0 40 40">
+			{% include 'assets/icons/icon-home-eye.svg' %}
+		</symbol>
+	</svg>
+
+	<div id="preloader">
+		<div class="page-loader">
+			<div class="page-loader__flashes">
+				<img src="{{ theme.link }}/assets/img/preloader-flash-1.jpg" />
+				<img src="{{ theme.link }}/assets/img/preloader-flash-2.jpg" />
+				<img src="{{ theme.link }}/assets/img/preloader-flash-3.jpg" />
+			</div>
+			<div class="page-loader__spinner loading">
+			  <span class="slice"></span>
+			  <span class="slice"></span>
+			  <span class="slice"></span>
+			  <span class="slice"></span>
+			  <span class="slice"></span>
+			  <span class="slice"></span>
+			</div>
+        	<div class='page-loader__enter'>
+        		<div class="page-loader__enter-init">
+        			<span class="page-loader__percent">0%</span>
+        		</div>
+        		<div class="page-loader__enter-finished">
+        			<span class="page-loader__percent">0%</span>
+        		</div>
+        	</div>
+        	<div class="disclaimer">
+				For the best experience, please view this prototype website in Google Chrome.
+			</div>
+      	</div>
+	</div>
+	<div id="container">
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ theme.link }}/assets/lib/createjs.js"></script>
+	<script>
+
+	function setup() {
+		
+		var pages = {{ pages | json_encode }};
+		var menu = {{ menu | json_encode }};
+
+		/*
+		ReactDOM.render(
+	    	React.createElement(window.components.Container, {
+	    		pages: pages,
+	    		menu: menu,
+	    		hasLoaded: false
+	    	}),
+	    	document.getElementById("container")
+	    );
+	*/
+		// Pre-loader setup
+		var hasLoaded = false;
+
+		// Determine what video extension is supported by the browser so we pre-load only that type
+		var videoExtension = function () {
+			var elem = document.createElement('video');
+			var supportedExtension = null;
+			try {
+				if (!!elem.canPlayType) {
+					var canPlay = {
+						mp4: elem.canPlayType('video/mp4; codecs="avc1.42E01E"'),
+						ogv: elem.canPlayType('video/ogg; codecs="theora"'),
+						webm: elem.canPlayType('video/webm; codecs="vp8, vorbis"')
+					};
+					function canPlayExtension(supported) {
+						Object.keys(canPlay).some(function(extension) {
+							supportedExtension = canPlay[extension] = supported ? extension : null;
+							return supportedExtension;
+						});
+						return supportedExtension;
+					}
+					// First check if any of the extensions are 'probably' supported, then 'maybe'
+					supportedExtension = canPlayExtension('probably') || canPlayExtension('maybe');
+				}
+			} catch (e) {}
+
+			return supportedExtension;
+		}();
+
+		var assets = {{ function('getSiteAssetUrls') }};
+		var images = assets['svg'].concat(assets['png']).concat(assets['jpg']);
+		var videos = assets[videoExtension];
+
+		function handleProgress(e) {
+			percent = Math.floor(100 * e.progress);
+			$(".page-loader__percent").text(percent + "%");
+			$(".page-loader__enter-finished").css("width", percent + "%");
+		}
+
+		function handleComplete() {
+			hasLoaded = true;
+			$(".page-loader__enter-finished").addClass("complete");
+			$(".page-loader__percent").text("Enter Site");
+		}
+
+		// Builds and runs the pre-loader queue
+		var queue = new createjs.LoadQueue();
+		queue.on('progress', handleProgress, this);
+		queue.on('complete', handleComplete, this);
+		queue.loadManifest(videos.concat(images));
+
+	    $(".page-loader__enter").on("click", function () {
+	    	
+	    	if (!hasLoaded) {
+	    		return;
+	    	}
+
+	    	window.mountSite();
+
+/*	    	
+	    	
+	    	ReactDOM.render(
+		    	React.createElement(window.components.Container, {
+		    		pages: pages,
+		    		menu: menu,
+		    		hasLoaded: true
+		    	}),
+		    	document.getElementById("container")
+		    );
+*/
+		    $("#preloader").addClass("preloader-faded");
+	    });
+	}
+
+	setup();
+	</script>
+{% endblock %}

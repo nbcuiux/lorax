@@ -1,0 +1,52 @@
+.standard-cta {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  font-family: 'Grinched2';
+  cursor: pointer;
+  padding: 5px 30px;
+  margin-top: 30px;
+  border-radius: 5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg);
+  text-shadow: 1px 7px 5px rgba(0, 0, 0, 0.8);
+  transition: all .3s ease-in-out;
+  font-size: 14px;
+
+  &:hover {
+    border: 1px solid #ff9e00;
+    background: #ff9e00;
+    transform: scale(1.2);
+    text-shadow: 1px 3px 1px rgba(0, 0, 0, 0.8);
+  }
+
+  &.large {
+    font-size: 30px;
+    padding: 15px 30px;
+    letter-spacing: 2px;
+
+    @media screen and (max-width: 1200px) {
+      position: absolute;
+      left: 13%;
+      z-index: 2;
+      top: 300px;
+    }
+
+    @media screen and (max-width: $bp-small) {
+      top: 260px;
+      font-size: 20px;
+      padding: 10px 20px;
+      left: 120px
+    }
+
+    @media screen and (max-width: 400px) {
+      left: 70px;
+    }
+  }
+
+  .gallery-item--inner & {
+    position: relative;
+    top: 20px;
+  }
+}

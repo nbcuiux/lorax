@@ -1,0 +1,21 @@
+
+
+
+.auto-video {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	video {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+		background-size: cover;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		@include transform(translate(-50%, -50%));
+	}
+}

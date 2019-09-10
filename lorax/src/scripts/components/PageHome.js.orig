@@ -1,0 +1,62 @@
+
+import React, { Component, PropTypes } from 'react';
+import ClassNames from 'classnames';
+import PageVideoBackground from './PageVideoBackground.js';
+import AutoVideo from './AutoVideo.js';
+import Tilter from "./Tilter.js";
+
+export default class PageHome extends Component {
+
+
+  constructor(props) {
+    super(props);
+  }
+
+  openTrailer() {
+    this.context.openGallery([{
+      embed_url: "https://www.youtube.com/embed/1bHdzTUNw-4"
+    }], 0);
+  }
+
+  goToTickets() {
+    this.props.navTo(5);
+  }
+
+  render() {
+    return (
+      <div>
+        <AutoVideo src={window.STATIC_URL + "/video/Marshmallow_v3_Final.mp4"} isPlaying={true} loop={true}/>
+        <div className="">
+          <img src={window.STATIC_URL + "/img/marshmallow-1.png"} className="marshmallow-1" />
+          <img src={window.STATIC_URL + "/img/marshmallow-2.png"} className="marshmallow-2" />
+          <img src={window.STATIC_URL + "/img/marshmallow-3.png"} className="marshmallow-3" />
+          <img src={window.STATIC_URL + "/img/marshmallow-4.png"} className="marshmallow-4" />
+<<<<<<< HEAD
+          <img src={window.STATIC_URL + "/img/marshmallow-trailer.png"} className="marshmallow-trailer" onClick={this.openTrailer.bind(this)} />
+          <img src={window.STATIC_URL + "/img/marshmallow-tickets.png"} className="marshmallow-tickets" onClick={this.goToTickets.bind(this)}/>
+=======
+          <Tilter xFactor="-10" yFactor="-10" rotateFactor="2">
+            <img src={window.STATIC_URL + "/img/marshmallow-trailer.png"} className="marshmallow-trailer" />
+          </Tilter>
+          <Tilter xFactor="-10" yFactor="-10" rotateFactor="2">
+            <img src={window.STATIC_URL + "/img/marshmallow-tickets.png"} className="marshmallow-tickets" />
+          </Tilter>
+          <img src={window.STATIC_URL + "/img/marshmallow-5.png"} className="marshmallow-5" />
+          <img src={window.STATIC_URL + "/img/marshmallow-6.png"} className="marshmallow-6" />
+          <img src={window.STATIC_URL + "/img/marshmallow-7.png"} className="marshmallow-7" />
+>>>>>>> ed2a5b2dc9d46f4724fd31d884851e8a5b8cdfff
+        </div>
+      </div>
+    );
+  }
+}
+
+
+
+// Open gallery is defined in Container.js
+PageHome.contextTypes = {
+  openGallery: React.PropTypes.func
+};
+
+
+

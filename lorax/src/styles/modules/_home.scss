@@ -1,0 +1,207 @@
+
+
+
+
+.marshmallow {
+  z-index: 1;
+}
+
+
+.marshmallow-1 {
+  position: absolute;
+  left: 31%;
+  top: 32%;
+}
+
+.marshmallow-2 {
+  position: absolute;
+  left: 25.5%;
+  top: 31%;
+}
+
+.marshmallow-3 {
+  position: absolute;
+  top: 40%;
+  left: 27%;
+}
+
+.marshmallow-4 {
+  position: absolute;
+  top: 37%;
+  left: 34%;
+}
+
+.marshmallow-5 {
+  position: absolute;
+  left: 22%;
+  top: 58%;
+}
+
+.marshmallow-6 {
+  position: absolute;
+  top: 60%;
+  left: 16.5%;
+}
+
+.marshmallow-7 {
+  position: absolute;
+  top: 70%;
+  left: 18.6%;
+}
+
+.marshmallow-tickets {
+  position: absolute;
+  top: 49%;
+  left: calc(12% + 325px);
+  @media (max-width: 1500px) {
+    left: calc(12% + 250px);
+  }
+
+  @media screen and (max-width: $bp-tiny) {
+    left: calc(-8% + 200px);
+  }
+
+  @media screen and (max-width: $bp-old) {
+    left: calc(1% + 150px);
+  }
+}
+
+.marshmallow-trailer {
+  position: absolute;
+  top: 30%;
+  left: 12%;
+
+  @media screen and (max-width: $bp-tiny) {
+    left: 3%;
+  }
+
+  @media screen and (max-width: $bp-old) {
+    left: 1%;
+  }
+}
+
+
+.marshmallow-tickets,
+.marshmallow-trailer {
+  z-index: 2;
+  cursor: pointer;
+  width: 250px;
+  @include transform(scale(1) rotate(0deg));
+  @include transition(transform 0.5s);
+  &:hover {
+    @include transform(scale(1.2) rotate(2deg));
+  }
+
+  @media (max-width: 1500px) {
+    width: 200px;
+  }
+}
+
+.main-wrapper-marshmallow--start {
+
+  .marshmallow {
+    top: -20%;
+  }
+
+  .marshmallow-tickets,
+  .marshmallow-trailer {
+    top: -40%;
+  }
+}
+
+.main-wrapper-marshmallow--enter {
+
+  .marshmallow {
+    @include transition(transform 0.5s, top 3s);
+    @include animation(marshmallow-drop-1 3s);
+    @include animation-timing-function(ease-in-out);
+
+    &:nth-child(1) {
+      @include animation-delay(0.1s);
+    }
+
+    &:nth-child(2) {
+      @include animation-delay(0.6s);
+    }
+
+
+    &:nth-child(3) {
+      @include animation-delay(0.2s);
+    }
+
+    &:nth-child(4) {
+      @include animation-delay(0.4s);
+    }
+
+    &:nth-child(5) {
+      @include animation-delay(0.3s);
+    }
+
+    &:nth-child(6) {
+      @include animation-delay(0.8s);
+    }
+
+
+    &:nth-child(7) {
+      @include animation-delay(0.4s);
+    }
+
+  }
+
+
+  .marshmallow-tickets,
+  .marshmallow-trailer {
+    @include transition(transform 0.5s, top 3s);
+    @include animation(marshmallow-drop-1 3s);
+    @include animation-timing-function(ease-in-out);
+    @include animation-delay(0.6s);
+    @include transition-delay(0.6s);
+  }
+
+
+  .marshmallow-trailer {
+    @include animation-delay(0.8s);
+    @include transition-delay(0.8s);
+  }
+}
+
+
+@include keyframes(marshmallow-drop-1) {
+  0% {
+    @include transform(translate(-20%, 0vh) rotate(-10deg));
+   // @include animation-timing-function(ease-in-out);
+  }
+
+  30% {
+    @include transform(translate(20%, 0vh) rotate(10deg));
+    //@include animation-timing-function(ease-in-out);
+  }
+
+  60% {
+    @include transform(translate(-20%, 0vh) rotate(-10deg));
+    //@include animation-timing-function(ease-in-out);
+  }
+/*
+  90% {
+    @include transform(translate(10%, 0vh) rotate(10deg));
+    //@include animation-timing-function(ease-in-out);
+  }
+  */
+/*
+  80% {
+    @include transform(translate(-10%, 0vh) rotate(-10deg));
+    //@include animation-timing-function(ease-in-out);
+  }
+*/
+  100% {
+    @include transform(translate(0%, 0vh) rotate(0deg));
+    //@include animation-timing-function(ease-in-out);
+  }
+
+}
+
+.homepage {
+  .page-base__background {
+    background-position: 65% center;
+  }
+}

@@ -1,0 +1,321 @@
+
+.pages {
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-height: 100vh;
+	width: 100vw;
+	z-index: 40;
+
+	@include transition(transform 1.5s);
+	@include display(flex);
+	@include align-items(stretch);
+	@include justify-content(flex-start);
+
+	// Blur when nav is open
+	.main-wrapper-nav--opening &,
+	.main-wrapper-nav--open & {
+		webkit-filter: blur(12px);
+		filter: blur(12px);
+	}
+
+	max-height: 100vh;
+
+	.main-wrapper-intro-phase--null &,
+	.main-wrapper-intro-phase--fade-out &,
+	.main-wrapper-intro-phase--finish & {
+		max-height: none;
+	}
+
+
+
+-webkit-transition: all 500ms cubic-bezier(0.085, 0.295, 0.305, 1); /* older webkit */
+-webkit-transition: all 500ms cubic-bezier(0.085, 0.295, 0.305, 1.010);
+   -moz-transition: all 500ms cubic-bezier(0.085, 0.295, 0.305, 1.010);
+     -o-transition: all 500ms cubic-bezier(0.085, 0.295, 0.305, 1.010);
+        transition: all 500ms cubic-bezier(0.085, 0.295, 0.305, 1.010); /* custom */
+
+-webkit-transition-timing-function: cubic-bezier(0.085, 0.295, 0.305, 1); /* older webkit */
+-webkit-transition-timing-function: cubic-bezier(0.085, 0.295, 0.305, 1.010);
+   -moz-transition-timing-function: cubic-bezier(0.085, 0.295, 0.305, 1.010);
+     -o-transition-timing-function: cubic-bezier(0.085, 0.295, 0.305, 1.010);
+        transition-timing-function: cubic-bezier(0.085, 0.295, 0.305, 1.010); /* custom */
+
+
+
+	white-space: nowrap;
+}
+
+
+.page-container {
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 100vh;
+	position: relative;
+	white-space: normal;
+	overflow-x: hidden;
+	display: none;
+}
+
+.page-base {
+	overflow-y: hidden;
+}
+
+
+.page-container.page--curr {
+	display: block;
+}
+
+.page-container.page--prev {
+
+	.main-wrapper-page-phase--moving & {
+		max-height: none;
+		overflow-y: visible;
+	}
+
+	.main-wrapper-page-phase--finish & {
+		max-height: 100vh;
+		overflow-y: hidden;
+	}
+}
+
+.page-base {
+	&--scroll-phase-top,
+	&--scroll-phase-blur {
+		max-height: 100vh;
+    	overflow: hidden;
+	}
+}
+
+
+.page-video-background {
+	width: 100vw;
+	min-height: 100vh;
+	top: 0;
+	left: 0;
+	position: relative;
+	overflow: hidden;
+
+	video {
+		width: auto;
+		min-width: 100%;
+		height: auto;
+		min-height: 100%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		@include transform(translate(-50%, -50%));
+	  	transition: 1s opacity;
+	  	webkit-filter: brightness(100%);
+		filter: brightness(100%);
+	  	@include transition(filter 1s, transform 1s);
+	}
+
+	.page-base--scroll-phase-blur &,
+	.page-base--scroll-phase-bottom & {
+		video {
+			//webkit-filter: blur(12px);
+			//filter: blur(12px);
+			webkit-filter: brightness(60%);
+			filter: brightness(60%);
+		}
+
+	}
+}
+
+.page-video-background__inner {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	@include transition(transform 1s);
+
+	.page-base--scroll-phase-blur &,
+	.page-base--scroll-phase-bottom & {
+		transform: scale(1.2);
+	}
+
+
+	.page-video-background--bottom & {
+		position: absolute;
+	}
+}
+
+.page-video-background__blurb-title {
+	color: #FFF;
+	@include font-style-heading-4;
+	font-size: 36px;
+    line-height: 1;
+    margin-bottom: 30px;
+    opacity: 0;
+    @include transform(translateY(20px));
+    @include transition(all 0.4s 0s);
+
+	.page-base--scroll-phase-blur &,
+	.page-base--scroll-phase-bottom & {
+		opacity: 1;
+		@include transform(translateY(0px));
+		@include transition(all 0.4s 0.2s);
+	}
+}
+
+.page-video-background__blurb-content {
+	font-size: 21px;
+	font-weight: 400;
+	color: #FFF;
+    opacity: 0;
+    @include transform(translateY(20px));
+    @include transition(all 0.4s 0s);
+	.page-base--scroll-phase-blur &,
+	.page-base--scroll-phase-bottom & {
+		opacity: 1;
+		@include transform(translateY(0px));
+		@include transition(all 0.4s 0.4s);
+	}
+}
+
+.page-video-background__blurb {
+	position: absolute;
+	text-align: left;
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	margin: 20px 0px;
+	max-width: 500px;
+	color: #FFF;
+		color: $color-hilight;
+	//@include font-style-heading-3;
+	line-height: 36px;
+	text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.8);
+	@include transition(all 0.4s);
+	line-height: 40px;
+
+	/*
+	@media screen and (max-width: $bp-small) {
+		padding: 0;
+	}
+	*/
+	@media (max-width: $bp-tablet) {
+		width: 100%;
+		padding: 0px 20px;
+	}
+
+}
+
+// Img replacement
+.page-base__background {
+	width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+}
+
+
+.encrypt-transition {
+
+}
+
+.encrypt-transition__encrypted {
+	opacity: 0.5;
+}
+
+
+.mock-content {
+	max-width: 500px;
+	margin: 0px auto;
+}
+
+.page-info {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	opacity: 1;
+	text-align: center;
+	@include transform(translate(-50%,-50%) scale(1))
+	@include transition(opacity .3s, transform 0.3s);
+	.page-base--scroll-phase-bottom &, .page-base--scroll-phase-blur & {
+		opacity: 0;
+		@include transform(translate(-50%,-50%) scale(0.8))
+	}
+}
+
+.page-info__icon {
+	display: inline-block;
+}
+
+
+.page-title {
+	@include font-style-heading-2;
+	color: #fff;
+	transition: opacity .3s ease-in-out;
+	opacity: 1;
+	margin-top: 20px;
+	line-height: 1.2;
+	width: 100%;
+	padding: 0px 20px;
+	font-family: 'tribecaregular';
+
+	.page-base--scroll-phase-bottom &, .page-base--scroll-phase-blur & {
+		opacity: 0;
+	}
+}
+
+.page-icon, .page-down {
+	font-size: 120px;
+	text-align: center;
+	color: #fff;
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+	opacity: 1;
+}
+
+.page-down {
+	font-size: 32px;
+	position: absolute;
+	top: calc(100vh - 50px);
+	left: 0;
+	right: 0;
+	transform: translateX(-50%);
+	z-index: 21;
+	cursor: pointer;
+	@include transition(top 0.5s);
+	.page-base--scroll-phase-bottom &, .page-base--scroll-phase-blur & {
+		top: calc(100vh - 130px);
+	}
+
+	img {
+		width: 30px;
+	}
+}
+
+
+
+.bounce {
+  -moz-animation: bounce 5s infinite;
+  -webkit-animation: bounce 5s infinite;
+  animation: bounce 5s infinite;
+	animation-delay: .3s;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}

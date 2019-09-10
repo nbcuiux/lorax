@@ -1,0 +1,44 @@
+
+
+
+.auto-video {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	video {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+		background-size: cover;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		@include transform(translate(-50%, -50%));
+	}
+}
+
+@media screen and (max-width: $bp-tiny) {
+	*::-webkit-media-controls-panel {
+	  display: none!important;
+	  -webkit-appearance: none;
+	}
+
+	/* Old shadow dom for play button */
+
+	*::--webkit-media-controls-play-button {
+	  display: none!important;
+	  -webkit-appearance: none;
+	}
+
+	/* New shadow dom for play button */
+
+	/* This one works */
+
+	*::-webkit-media-controls-start-playback-button {
+	  display: none!important;
+	  -webkit-appearance: none;
+	}
+}

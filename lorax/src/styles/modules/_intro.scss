@@ -1,0 +1,140 @@
+
+
+
+.intro-video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	@include transition(opacity 1.5s);
+	opacity: 0;
+	z-index: 60;
+	.main-wrapper-intro-phase--video &,
+	.main-wrapper-intro-phase--unloaded &,
+	.main-wrapper-intro-phase--logo-appear & {
+		opacity: 1;
+	}
+}
+
+
+.intro-logo-big {
+	//width: 100vw;
+	//height: 100vh;
+	top: 0;
+	left: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 70;
+	@include transition(opacity 0.5s);
+
+	.main-wrapper-intro-phase--video & {
+		opacity: 0;
+	}
+
+	.main-wrapper-intro-phase--logo-appear &,
+	.main-wrapper-intro-phase--background-appear &,
+	.main-wrapper-intro-phase--logo-shrink & {
+		opacity: 1;
+	}
+
+	.main-wrapper-intro-phase--logo-fade & {
+		opacity: 0;
+	}
+
+
+	img {
+		width: 50vw;
+		height: auto;
+		position: absolute;
+		top: 5vh;
+		left: 50vw;
+		@include transform(translate(-50%, 0%));
+		@include transition(top 1s, left 1s, width 1s, transform 1s, opacity 0.5s);
+		opacity: 1;
+
+		.main-wrapper-intro-phase--video & {
+			top: 50vh;
+			left: 50vw;
+			width: 100vw;
+			@include transform(translate(-50%, -50%)  scale(0.1));
+			visibility: hidden;
+		}
+
+		.main-wrapper-intro-phase--logo-appear &,
+		.main-wrapper-intro-phase--background-appear &
+		 {
+			@include transform(translate(-50%, -50%));
+			top: 50vh;
+			left: 50vw;
+			width: 100vw;
+		}
+		.main-wrapper-intro-phase--logo-shrink & {
+			top: 20px;
+			left: 20px;
+			width: 200px;
+			@include transform(translate(0%, 0%));
+		}
+		.main-wrapper-intro-phase--logo-fade &,
+		.main-wrapper-intro-phase--finish &,
+		.main-wrapper-intro-phase--null & {
+			top: 20px;
+			left: 20px;
+			width: 200px;
+			@include transform(translate(0%, 0%));
+			opacity: 0;
+		}
+	}
+}
+
+
+.logo-main {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	z-index: 55;
+	opacity: 1;
+	@include transition(opacity 0.4s);
+	img {
+		width: 200px;
+		height: auto;
+	}
+	display: block;
+	.main-wrapper-intro-phase--logo-appear &,
+	.main-wrapper-intro-phase--background-appear &,
+	.main-wrapper-intro-phase--logo-shrink & {
+		display: none;
+	}
+
+	&--hidden {
+		opacity: 0;
+	}
+}
+
+.intro-skip {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	padding: 20px;
+	color: #FFF;
+	cursor: pointer;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+	z-index: 75;
+	font-family: 'Grinched2';
+	text-transform: uppercase;
+
+	.universal-right-arrow {
+		font-weight: bold;
+	}
+}
+
+.skip-text {
+	display: inline-block;
+	margin-top: 3px;
+	margin-right: 6px;
+	font-size: 20px;
+	letter-spacing: 1px;
+	position: relative;
+	top: 2px;
+}

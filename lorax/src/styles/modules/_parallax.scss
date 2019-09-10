@@ -1,0 +1,123 @@
+
+
+
+
+@mixin plx-layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 1000vw;
+	background-size: contain;
+	background-repeat: repeat-x;
+	//background-attachment: fixed;
+	@include transition(transform 1s);	
+}
+
+@include keyframes(river-flow) {
+
+	0% {
+		background-position: 0px 0px;
+	}
+
+	25% {
+		background-position: -25% 25px;
+	}
+
+	50% {
+		background-position: -50% 0px;
+	}
+
+	75% {
+		background-position: -75% 25px;
+	}
+}
+
+$waveHeight: 2px;
+
+@include keyframes(wave) {
+
+	0% {
+		@include transform(translateY(0px));
+	}
+
+	25% {
+		@include transform(translateY($waveHeight));
+	}
+
+	50% {
+		@include transform(translateY(0px));
+	}
+
+	75% {
+		@include transform(translateY($waveHeight));
+	}
+}
+
+@include keyframes(flow) {
+
+	0% {
+		background-position: 0px 0px;
+	}
+
+	100% {
+		background-position: 600px 0px;
+	}
+}
+
+
+.horiz-plx__sky {
+	@include plx-layer; 
+	height: 50vh;
+	@include linear-gradient(to top, #bde7fd 70%, #47b0f7 100%);
+
+	z-index: 10;
+}
+
+.horiz-plx__clouds {
+	@include plx-layer; 
+	background-image: url(../img/clouds.png);
+
+	z-index: 20;
+}
+
+
+.horiz-plx__back {
+	@include plx-layer; 
+	background-image: url(../img/lorax-bg-faded.png);
+
+	z-index: 30;
+}
+
+.river-wrapper {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	@include animation(wave 5s ease-in-out infinite);
+}
+
+.river {
+	width: 6000px;
+	position: absolute;
+	transition: none;
+	height: 300px;
+	bottom: 0px;
+	background-image: url(../img/river-bg.png);
+	background-size: 600px 48px;
+	background-repeat: repeat;
+	@include animation(flow 15s linear infinite);
+	
+}
+
+.river-scroll {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vh;
+	overflow: visible;
+	z-index: 25;
+	@include transition(transform 1s);
+}
+
+

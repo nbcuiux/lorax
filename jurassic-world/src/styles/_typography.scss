@@ -1,0 +1,76 @@
+
+
+
+$font-main: 'Roboto Mono', monospace;
+
+
+@mixin font-style-body {
+
+  font-family: $font-main;
+  -webkit-font-smoothing: antialiased;
+  line-height: 28px;
+  font-weight: 500;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+@mixin font-style-h3 {
+  font-size: 15px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+@mixin font-style-small-thick {
+  font-family: $font-main;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@mixin font-style-h2 {
+  font-family: $font-main;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+@mixin font-style-h1 {
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 40px;
+}
+
+@mixin font-style-heading-medium {
+	font-weight: 400;
+	font-size: 18px;
+}
+
+@mixin font-style-heading-2 {
+    text-transform: uppercase;
+    font-family: $font-main;
+    font-size: 38px;
+    font-weight: 300;
+}
+
+@mixin font-style-heading-3 {
+  font-family: tribecaregular;
+  font-size: 15px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+@mixin font-style-heading-4 {
+  font-family: $font-main;
+  font-size: 8px;
+  line-height: 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@mixin font-style-grid-cta {
+  font-size: 18px;
+  color: #fff;
+  font-family: $font-main;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-weight: 600;
+}

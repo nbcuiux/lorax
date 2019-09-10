@@ -1,0 +1,169 @@
+
+
+.gallery-overlay {
+	width: 100vw;
+	height: 100vh;
+	background: rgba(#000, 0.95);
+	z-index: 500;
+	position: fixed;
+	visibility: hidden;
+	opacity: 0;
+	@include transition(opacity 0.3s linear);
+
+	&--opening {
+		visibility: visible;
+		opacity: 0;
+	}
+
+	&--open {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	&--closing {
+		opacity: 0;
+		visibility: visible;
+	}
+
+	&--closed {
+		opacity: 0;
+		visibility: hidden;
+	}
+
+
+
+}
+
+.gallery-overlay__mask {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 109;
+}
+
+.gallery-overlay__close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #FFF;
+	z-index: 110;
+	cursor: pointer;
+	font-size: 14px;
+	transition: all .3s ease-in-out;
+	@include transform-origin(50% 50%);
+	padding: 10px;
+
+	&:hover {
+		transform: scale(1.2);
+	}
+}
+
+.gallery-overlay__list {
+}
+
+
+.gallery-item {
+
+	width: 100vw;
+	height: 100vh;
+
+	@include display(flex);
+	@include align-items(center);
+	@include justify-content(center);
+
+	img {
+		object-fit: contain;
+		height: 100%;
+    	width: 100%;
+
+	}
+
+}
+
+.gallery-item--inner {
+	width: 80%;
+	height: 80%;
+	text-align: center;
+	@include display(flex);
+	@include align-items(center);
+	@include justify-content(center);
+	@include flex-direction(column);
+}
+
+
+.gallery-item__video-wrapper {
+	width: 80%;
+	height: 80%;
+	text-align: center;
+	position: relative;
+}
+
+
+.gallery-item__video {
+	padding-top: percentage(9/16);
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	@include transform(translateY(-50%));
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+
+
+
+
+
+
+.flickity-prev-next-button svg {
+	display: none;
+}
+
+.flickity-prev-next-button {
+	background: transparent;
+
+	&:hover {
+		background: transparent;
+
+		&.previous {
+			left: 15px;
+			transform: translateY(-50%);
+			top: 50%;
+		}
+
+		&.next {
+			right: 15px;
+			transform: translateY(-50%);
+			top: 50%;
+		}
+	}
+
+	&.previous {
+		transition: all .2s ease-in-out;
+
+		&::before {
+			content: "\EA14";
+			font-family: 'icons';
+			font-size: 20px;
+			color: white;
+		}
+	}
+
+	&.next {
+		transition: all .2s ease-in-out;
+
+		&::before {
+			content: "\EA15";
+			font-family: 'icons';
+			font-size: 20px;
+			color: white;
+		}
+	}
+}

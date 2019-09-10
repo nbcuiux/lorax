@@ -1,0 +1,55 @@
+$width:10px;
+$height:$width*7;
+$n:20;
+$t:3s;
+$gap:8px;
+.dna {
+  width: (2 + $gap*2) * $n;
+  height: $height;
+  perspective: (2 + $gap*2) * $n;
+  transform-style: preserve-3d;
+  transform: translateX(-120px) rotateZ(-35deg);
+  opacity: .8;
+}
+
+.ele {
+  width: 1px;
+  height: $height;
+  float: left;
+  margin: 0 $gap;
+  border-left: 1px #71b3e2 dashed;
+  position: relative;
+  transform: rotateX(-360deg);
+  animation: run 4s linear infinite;
+  filter: blur(.5px);
+  &:before,
+  &:after {
+    content: '';
+    width: $width;
+    height: $width;
+    background: #1a73b4;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: blur(3px);
+  }
+  &:before {
+    top: -2px;
+    background: #00599a;
+  }
+  &:after {
+    bottom: -2px;
+  }
+  @for $i from 1 through $n {
+    &:nth-of-type(#{$i}) {
+      animation-delay: $t/$n*$i*-1;
+    }
+  }
+}
+
+@keyframes run {
+  to {
+    transform: none;
+  }
+}

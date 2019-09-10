@@ -1,0 +1,39 @@
+
+
+$frame-width: 10px;
+
+
+.page-trailer__video {
+	position: absolute;
+	left:50%;
+	@include transform(translateX(-50%));
+	top: 80px;
+	width: 50vw;
+	padding: 0px;
+	background: #000;
+	&:before {
+		position: absolute;
+		background: rgba(#000, 0.5);
+		top: -$frame-width;
+		left: -$frame-width;
+		right: -$frame-width;
+		bottom: -$frame-width;
+		content: "";
+		display: block;
+		border-radius: 5px;
+	}
+}
+
+.page-trailer__video-inner {
+
+	padding-top: percentage(9/16);
+	position: relative;
+
+	iframe {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		right: 0px;
+	}
+}

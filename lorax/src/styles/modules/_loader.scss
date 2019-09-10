@@ -1,0 +1,125 @@
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0) rotateZ(-2deg);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0) rotateZ(2deg);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0) rotateZ(-2deg);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0) rotateZ(2deg);
+  }
+}
+
+
+
+
+.page-loader {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  z-index: 80;
+  background: #FFF;
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+  @include flex-direction(column);
+
+  &.loader-leave {
+    opacity: 1;
+  }
+
+  &.loader-leave.loader-leave {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
+}
+
+.page-loader__gif {
+  width: 500px;
+  height: 100px;
+  border-bottom: 1px solid #EEE;
+  margin-top: 70px;
+  position: relative;
+  &:before,
+  &:after {
+    content: "";
+    width: 60px;
+    height: 100%;
+    position: absolute;
+    top: 1px;
+  }
+
+  &:before {
+    left: 0;
+    //@include background-image(to left, rgba(#FFF,1), rgba(#FFF,0))
+    @include background-image(linear-gradient(left, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%));
+  }
+
+  &:after {
+    right: 0;
+    @include background-image(linear-gradient(right, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%));
+  }
+}
+
+$button-width: 250px;
+
+.page-loader__enter {
+  position: relative;
+  width: $button-width;
+  cursor: pointer;
+}
+
+.page-loader__enter-init,
+.page-loader__enter-finished {
+  position: absolute;
+  top: 0px;
+  width: $button-width;
+  left: 0%;
+  overflow: hidden;
+  height: 60px;
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 60px;
+    border-radius: 30px;
+    background: #FFF;
+    color: #EEE;
+    border: 1px solid #EEE;
+    display: block;
+    text-align: center;
+    line-height: 60px;
+    width: $button-width;
+    @include font-style-heading-2;
+    text-shadow: none;
+  }
+}
+
+.page-loader__enter-finished {
+  span {
+    background: $color-hilight;
+    color: #FFF;
+    border: 1px solid $color-hilight;
+  }
+}
+
+#preloader {
+  opacity: 1;
+  visibility: visible;
+  @include transition(opacity 0.5s 0s, visibility 0.2s 0.5s);
+  z-index: 500;
+  position: fixed;
+  &.preloader-faded {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

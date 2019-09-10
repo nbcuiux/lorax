@@ -1,0 +1,20 @@
+
+
+.splash-wrapper {
+	width: 100vw;
+	height: 100vh;
+	@include display(flex);
+	@include align-items(center);
+	@include justify-content(center);
+}
+
+
+.splash-text {
+	font-size: 40px;
+	font-weight: 700;
+    text-transform: uppercase;
+    color: #FFF;
+    padding: 20px;
+    text-align: center;
+    line-height: 1.2;
+}

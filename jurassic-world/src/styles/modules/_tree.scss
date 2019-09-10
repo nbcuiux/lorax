@@ -1,0 +1,56 @@
+
+
+
+.tree-top {
+	position: absolute;
+	top: 0vh;
+	left: 0vh;
+	width: 20vh;
+	height: 20vh;
+
+    @include transition(transform 2s ease-out);
+
+	background-image: url("../img/tree-top-1.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.tree-top--1 {
+	top: 18vh;
+    left: 71vh;
+    width: 17vh;
+    height: 17vh;
+}
+
+.tree-top--2 {
+	top: 36vh;
+    left: 50vh;
+    width: 12vh;
+    height: 12vh;
+    background-image: url("../img/tree-top-2.png");
+}
+
+.tree-top--3 {
+	top: 31vh;
+    left: 154vh;
+    width: 22vh;
+    height: 22vh;
+    background-image: url("../img/tree-top-3.png");
+}
+
+.tree-top--4 {
+    top: 15vh;
+    left: 259vh;
+    width: 22vh;
+    height: 22vh;
+    background-image: url("../img/tree-top-2.png");
+}
+
+
+.tree-top--5 {
+	top: 32vh;
+    left: 285vh;
+    width: 12vh;
+    height: 12vh;
+    background-image: url("../img/tree-top-1.png");
+}

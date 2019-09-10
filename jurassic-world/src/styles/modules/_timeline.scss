@@ -1,0 +1,612 @@
+
+
+$timeline-blue: #2D8BCB;
+
+
+body.page-template-process-timeline {
+	overflow-y: hidden;
+	background: #FFF;
+}
+
+.timeline {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	z-index: 100;
+	font-size: 14px;
+}
+
+.timeline-inner {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	@include transition(left 0.7s);
+}
+
+
+.timeline-background {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	@include transition(background-position 0.7s);
+	background-image: url("../img/timeline-background.svg");
+	bakcground-repeat: repeat-x;
+	background-size: auto 100%;
+	background-attachment: fixed;
+	background-color: #effdff;
+}
+
+
+// Controls
+
+.timeline-controls {
+	position: fixed;
+	top: 7vh;
+	right: 20px;
+	z-index: 50;
+	@include display(flex);
+	@include align-items(center);
+	background: rgba(#FFF, 0.9);
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #d2ecff;
+}
+
+.timeline-controls__next, 
+.timeline-controls__back,
+.timeline-controls__zoom-in,
+.timeline-controls__zoom-out {
+	font-size: 20px;
+	@include transition(color 0.4s);
+	cursor: pointer;
+	color: rgba(#000, 0.4);
+	margin: 0px 5px;
+	position: relative;
+	top: 0px;
+	&:hover {
+		color: $timeline-blue;
+	}
+	&:active {
+		top: 1px;
+	}
+
+	&.timeline-controls--hidden {
+		color: rgba(#000, 0.1);
+		cursor: auto;
+		top: 0px;
+	}
+
+}
+
+.timeline-controls__separator {
+	width: 1px;
+	margin: 0px 5px;
+	height: 20px;
+	background: #d2ecff;
+}
+
+// Phases
+
+.timeline-phases {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	height: 5vh;
+	background: $timeline-blue;
+	white-space: nowrap;
+	z-index: 50;
+	@include display(flex);
+	@include justify-content(flex-start);
+	@include align-items(center);	
+}
+
+
+.timeline-phases__item {
+	width: 20vw;
+	padding: 0px 20px;
+	height: 100%;	
+
+    position: relative;
+	//min-width: 100%;
+	@include display(flex);
+	@include align-items(center);	
+	@include transition(width 0.4s);
+
+	svg {
+		position: absolute;
+		left: -30px;
+	}
+
+	path {
+		stroke-width: 5px;
+		stroke: rgba(#FFF, 0.2);
+		fill: transparent;
+	}
+
+
+}
+
+.timeline-phase__end {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	height: 100%;
+	@include display(flex);
+	@include align-items(center);
+	padding: 0px 20px;
+}
+
+.timeline-phase__title {
+	font-weight: 700;
+    text-transform: uppercase;
+   	color: #FFF;
+   	.timeline-phases__item--floating & {
+   		position: fixed;
+   		top: 0px;
+   		height: 5vh;
+   		left: 20px;
+   		@include display(flex);
+		@include align-items(center);
+   	}
+}
+
+.timeline-phase__title-ext {
+	.timeline--big-view & {
+		display: none;
+	}
+}
+
+
+
+
+// Graph
+
+
+
+.timeline-graph {
+	position: absolute;
+	top: 60vh;
+	left: 0%;
+	height: 40vh;
+	min-width: 100vw;
+}
+
+.timeline-graph__key {
+	position: fixed;
+	top: 60vh;
+	left: 0%;
+	height: 40vh;
+	border-left: 5px solid $timeline-blue;
+}
+
+.timeline-graph__key-title {
+	font-size: 30px;
+	padding: 20px;
+	position: absolute;
+	bottom: 100%;
+	color: $timeline-blue;
+	white-space: nowrap;
+}
+.timeline-graph__key-top,
+.timeline-graph__key-bottom {
+	position: absolute;
+	left: 0px;
+	padding: 7px;
+	font-size: 12px;
+	white-space: nowrap;
+	&:before {
+		content: "";
+		width: 10px;
+		height: 1px;
+		background: $timeline-blue;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
+}
+
+.timeline-graph__key-top {
+	top: 0px;
+}
+
+.timeline-graph__key-bottom {
+	bottom: 0px;
+	&:before {
+		bottom: 0px;
+		top: auto;
+	}
+}
+
+.timelime-graph__svg {
+	overflow: visible;	
+	//background: rgba(#FFF, 0.5);
+}
+
+
+.timeline-graph__area {
+	fill: rgba(132, 204, 255, 1);
+	stroke: none;
+}
+
+.timeline-graph__point {
+	circle {
+		fill: purple;
+		stroke: purple;
+		stroke-width: 1;
+		@include transition(stroke-width 0.3s);
+		cursor: pointer;
+	}
+
+
+	text {
+		width: 20px;
+		height: 20px;
+		text-align: center;
+		opacity: 0;
+		cursor: pointer;
+		@include transition(opacity 0.3s);
+	}
+
+	&:hover {
+		circle {
+			stroke-width: 10;
+		}
+		text {
+			opacity: 1;
+		}
+	}	
+
+
+	@for $i from 0 through 10 {
+		&:nth-child(#{$i+1}) {
+			@include transform(translateY($i * -25px));
+		}
+	}
+}
+
+.timeline-graph__i {
+	stroke: #FFF;
+	fill: #FFF;
+}
+
+
+
+
+// Info
+
+.timeline-info-wrapper {
+	position: absolute;
+	top: 5vh;
+	left: 0vw;
+	height: 95vh;
+	@include display(flex);
+	@include justify-content(flex-start);
+	@include align-items(stretch);
+}
+
+
+.timeline-step {
+	text-align: center;
+	position: relative;
+	@include transition(min-width 0.4s);
+	&:after {
+		content: "";
+		width: 1px;
+		border-left: 1px dashed rgba(#000, 0.5);
+		height: 100%;
+		//background: #FFF;
+		position: absolute;
+		left: 50%;
+		top: 0px;
+		opacity: 0;
+		@include transition(opacity 0.4s);
+	}
+	&:hover {
+		&:after {
+			opacity: 1;
+		}
+	}
+}
+
+.time-step__number {
+	color: #FFF;
+	width: 20px;
+	height: 20px;
+	background: #48B1E5;
+	border-radius: 50%;
+	line-height: 20px;
+	font-weight: 700;
+	margin: 0px auto 0px auto;
+}
+
+.timeline-step__inner {
+	height: 55vh;
+	padding: 20px;
+	@include display(flex);
+	@include justify-content(center);
+	@include align-items(center);
+	color: #666;
+	> * {
+		padding: 20px;
+		background: #FFF;
+		border-radius: 5px;
+		box-shadow: 0px 1px 4px rgba(#000, 0.1);
+		position: relative;
+		z-index: 10;
+	}
+}
+
+.time-step__content {
+	margin-top: 10px;
+	.timeline--big-view & {
+		display: none;
+	}
+}
+
+
+// Detail boxes
+
+.timeline-boxes__wrapper {
+	width: 500px;
+	height: 500px;
+	perspective: 1000px;
+	z-index: 84;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	z-index: 81;
+	margin-left: -250px;
+	margin-top: -250px;
+	@include transform(scale(0.05));
+	@include transform-origin(50% 50%);
+	visibility: hidden;
+
+	.timeline-box--open-start &,
+	.timeline-box--opening &,
+	.timeline-box--close-start &,
+	.timeline-box--closing &
+	{
+		@include transform(scale(0.05));
+		@include transition(transform 0.5s, top 0.5s, left 0.5s);
+		visibility: visible;
+	}
+
+	.timeline-box--open-start & {
+		@include transform(scale(0.05));
+	}
+
+	.timeline-box--opening & {
+		@include transform(scale(1));
+	}
+
+	.timeline-box--open-finish & {
+		@include transform(scale(1));
+		visibility: visible;
+	}
+
+	.timeline-box--closing & {
+		@include transform(scale(0.05));
+		visibility: hidden;
+	}
+
+	.timeline-box--close-finish & {
+		visibility: hidden;
+	}	
+
+	@media (max-width: 500px) {
+		width: 100%;
+		margin-left: -50%;
+	}
+}
+
+.timeline-boxes__flipper {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	transform-style: preserve-3d;
+	@include transition(all 0.4s);
+
+	.timeline-box--show-category & {
+		transform: rotateY(180deg);
+	}
+}
+
+.timeline-detail__box,
+.timeline-category__box {
+	background: #FFF;
+	color: #333;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	border: 2px solid purple;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	backface-visibility: hidden;
+	@include display(flex);
+	@include justify-content(center);
+	@include align-items(center);
+}
+
+.timeline-detail__box {
+	z-index: 86;
+	transform: rotateY(0deg);
+}
+
+.timeline-category__box {
+	z-index: 85;
+	transform: rotateY(180deg);
+	border-radius: 10px;
+	display: block;
+	.timeline-box--show-category & {
+		z-index: 87;
+	}
+
+	&:after {
+		content: "";
+		display: block;
+		position: absolute;
+		bottom: 0px;
+		left: 20px;
+		right: 20px;
+		height: 50px;
+		z-index: 5;
+		// Needs latest Compass, add '@import "compass"' to your scss
+		// Permalink - use to edit and share this gradient:
+		// http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+100
+		@include linear-gradient(to bottom,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,1) 100%);
+
+	}
+
+}
+
+.timeline-content{
+
+	@include transition(opacity 0.4s);
+	opacity: 0;
+	padding: 80px;
+	text-align: center;
+
+	.timeline-box--open-finish & {
+		opacity: 1;
+	}
+
+	.timeline-box--close-start & {
+		opacity: 0;
+	}
+
+}
+
+.timeline-category__content {
+	//margin: 50px 50px 0px 50px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	overflow-y: scroll;
+	@include transition(opacity 0.4s);
+	.timeline-box--open-finish & {
+		opacity: 1;
+	}
+
+	.timeline-box--close-start &,
+	.timeline-box--closing & {
+		opacity: 0;
+	}
+
+}
+
+.timeline-category__back {
+	position: absolute;
+	z-index: 10;
+	top: 50px;
+	left: 50px;
+	cursor: pointer;
+	font-weight: 700;
+	color: #AAA;
+	line-height: 20px;
+	i {
+		margin-right: 5px;
+		font-size: 12px;
+		line-height: 20px;
+	}
+}
+
+.timeline-category__content-inner {
+	padding: 50px;
+}
+
+.timeline-mask {
+	width: 100%;
+	height: 100%;
+	background: rgba(#000, 0.3);
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	visibility: hidden;
+	opacity: 0;
+	z-index: 80;
+	@include transition(opacity 0.4s);
+	.timeline-box--opening &,
+	.timeline-box--open-finish & {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	.timeline-box--close-start & {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	.timeline-box--closing & {
+		opacity: 0;
+		visibility: visible;
+	}
+
+	.timeline-box--close-finish & {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+
+.timeline-detail__cat,
+.timeline-category__title {
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 700;
+	margin-bottom: 10px;
+	text-align: center;
+	i {
+		display: block;
+			margin-bottom: 5px;	
+	}
+}
+
+.timeline-detail__title {
+	font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.timeline-detail__cat-link {
+	margin-top: 10px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+// Category box
+/*
+.timeline-category__box {
+	background: #FFF;
+	padding: 50px 40px 40px 40px;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	z-index: 82;
+	@include transform(translateY(100%));
+	@include transition(transform 0.4s);
+	&--open {
+		@include transform(translateY(0%));
+	}
+}
+*/
+
+.timeline-category__close {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	font-size: 30px;
+	color: #AAA;
+	cursor: pointer;
+}
+
+
+

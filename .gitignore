@@ -1,0 +1,21 @@
+# Deepend Wordpress Starter gitignore
+
+node_modules
+.DS_Store
+.DS_store
+error.log
+.sass-cache
+npm-debug.log
+graphics/
+
+**/fonts/icons*
+**/uploads/
+
+**/wp-local-config.php
+**/wordpress/wp-content/uploads
+
+siteConfig.json
+.htaccess
+
+# Auto generated files
+_icons.scss

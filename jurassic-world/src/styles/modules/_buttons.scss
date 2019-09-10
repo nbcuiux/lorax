@@ -1,0 +1,70 @@
+$button-border: #00b7e4;
+$button-text: #75e4ff;
+
+.standard-cta {
+  background: rgba(20, 43, 67, 0.5);
+  border: 1px solid $button-border;
+  color: $button-text;
+  font-family: $font-main;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 30px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all .3s ease-in-out;
+  font-size: 14px;
+  text-shadow: 0 3px 4px rgba(0,216,241,.4);
+
+
+  &:hover {
+    @include animation(button-hover 0.4s forwards);
+  }
+
+  &.large {
+    font-size: 30px;
+    padding: 15px 30px;
+    position: relative;
+  	z-index: 2;
+    margin-top: 40px;
+  }
+
+  .gallery-item--inner & {
+    position: relative;
+    top: 20px;
+  }
+}
+
+@include keyframes(button-hover) {
+  0% {
+    border-color: rgba($button-border, 1);
+    color: rgba($button-text, 1);
+  }
+
+  20% {
+    border-color: rgba($button-border, 0.3);
+    color: rgba($button-text, 0.3);
+  }
+  40% {
+    border-color: rgba($button-border, 0.5);
+    color: rgba($button-text, 0.5);
+  }
+  60% {
+    border-color: rgba($button-border, 0.2);
+    color: rgba($button-text, 0.2);
+  }
+
+  80% {
+    border-color: rgba($button-border, 0.8);
+    color: rgba($button-text, 0.8);
+  }
+
+  90% {
+    border-color: rgba($button-border, 0.5);
+    color: rgba($button-text, 0.5);
+  }
+
+  100% {
+    border-color: rgba(#FFF, 1);
+    color: rgba(#fff, 1);
+  }
+}

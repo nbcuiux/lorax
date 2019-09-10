@@ -1,0 +1,109 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+
+	<script>
+		// Render all the wordpress data as json, which will eventually be
+		// passed as props into out components
+
+		window.SITE_DATA = {
+			pages: {{ pages | json_encode }},
+			menu: {{ menu | json_encode }}
+		}
+
+	</script>
+
+
+	<div id="preloader">
+		<div class="page-loader">
+        	<div class='page-loader__enter'>
+        		<div class="page-loader__enter-init">
+        			<span>Enter Site</span>
+        		</div>
+        		<div class="page-loader__enter-finished">
+        			<span>Enter Site</span>
+        		</div>
+        	</div>
+        	<div class="page-loader__gif">
+        		<img src="{{ theme.link }}/assets/img/fish-preloader.gif" />
+        	</div>
+
+        	<div class="disclaimer">
+				For the best experience, please view this prototype website in Google Chrome.
+			</div>
+      	</div>
+	</div>
+	<div id="container">
+	Hello
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ theme.link }}/assets/lib/createjs.js"></script>
+	<script>
+	function setup() {
+		var pages = {{ pages | json_encode }};
+		var menu = {{ menu | json_encode }};
+		var timeout = null;
+		var hasLoaded = false;
+
+		// Determine what video extension is supported by the browser so we pre-load only that type
+		var videoExtension = function () {
+			var elem = document.createElement('video');
+			var supportedExtension = null;
+			try {
+				if (!!elem.canPlayType) {
+					var canPlay = {
+						mp4: elem.canPlayType('video/mp4; codecs="avc1.42E01E"'),
+						ogv: elem.canPlayType('video/ogg; codecs="theora"'),
+						webm: elem.canPlayType('video/webm; codecs="vp8, vorbis"')
+					};
+					function canPlayExtension(supported) {
+						Object.keys(canPlay).some(function(extension) {
+							supportedExtension = canPlay[extension] = supported ? extension : null;
+							return supportedExtension;
+						});
+						return supportedExtension;
+					}
+					// First check if any of the extensions are 'probably' supported, then 'maybe'
+					supportedExtension = canPlayExtension('probably') || canPlayExtension('maybe');
+				}
+			} catch (e) {}
+
+			return supportedExtension;
+		}();
+
+		var assets = {{ function('getSiteAssetUrls') }};
+		var images = assets['svg'].concat(assets['png']).concat(assets['jpg']);
+		var videos = assets[videoExtension];
+
+		function handleComplete() {
+			hasLoaded = true;
+			window.mountSite();	
+			$(".page-loader__enter-finished").addClass("complete");		
+		}
+
+		function handleProgress(e) {
+			percent = Math.floor(100 * e.progress);
+			$(".page-loader__enter-finished").css("width", percent + "%");
+		}
+
+		// Builds and runs the pre-loader queue
+		var queue = new createjs.LoadQueue(false);
+		queue.on('complete', handleComplete, this);
+		queue.on('progress', handleProgress, this);
+		queue.loadManifest(videos.concat(images));
+
+	    $(".page-loader__enter").on("click", function () {
+	    	if (!hasLoaded) {
+	    		return;
+	    	}
+		    $("#preloader").addClass("preloader-faded");
+		    
+	    });
+	}
+
+	setup();
+	</script>
+{% endblock %}
